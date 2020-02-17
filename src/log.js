@@ -5,7 +5,6 @@ const logger = winston.createLogger({
   format: winston.format.json(),
   defaultMeta: { service: 'web' },
   transports: [
-    new winston.transports.File({ filename: 'error.log', level: 'error' }),
     new winston.transports.File({ filename: 'out.log' }),
     new winston.transports.Console({ format: winston.format.simple() }),
   ]
