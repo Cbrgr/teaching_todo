@@ -21,6 +21,10 @@ mongoose.connect(process.env.DB || "mongodb://localhost/todo", { useNewUrlParser
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
+app.get("/healthcheck", (req, res) => {
+  res.send("OK");
+})
+
 app.post("/add_todo", async (req, res) => {
   log.verbose("/add_todo", {
     route: "/add_todo",
@@ -54,7 +58,7 @@ app.get("/", async (req, res) => {
 });
 
 
-app.on("db ready", () => {
+// app.on("db ready", () => {
   const PORT = process.env.PORT || 4000;
   log.info("app listening", {PORT});
   app.listen(PORT);
