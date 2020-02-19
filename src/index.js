@@ -9,12 +9,16 @@ const todoFront = fs.readFileSync("./src/front/todo.ejs", "utf-8");
 
 const app = express();
 
-mongoose.connect(process.env.DB || "mongodb://localhost/todo", { useNewUrlParser: true, useUnifiedTopology: true })
-	.then(() => app.emit("db ready"))
-	.catch(err => console.error(err));
+// mongoose.connect(process.env.DB || "mongodb://localhost/todo", { useNewUrlParser: true, useUnifiedTopology: true })
+	// .then(() => app.emit("db ready"))
+	// .catch(err => console.error(err));
 
 
 app.use(bodyParser.urlencoded({ extended: false }));
+
+app.get("/healthcheck", (req, res) => {
+  res.send("OK");
+})
 
 app.post("/add_todo", async (req, res) => {
   if(req.body.todo) {
@@ -38,8 +42,8 @@ app.get("/", async (req, res) => {
 })
 
 
-app.on("db ready", () => {
+// app.on("db ready", () => {
   const PORT = process.env.PORT || 4000;
   console.log(`app listening on port ${PORT}`);
   app.listen(PORT);
-});
+// });
